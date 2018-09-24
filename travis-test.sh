@@ -4,5 +4,5 @@ set -eux
 for src in `find . | grep -E "\.(cpp|h)$"`
 do
     diff -u $src <($CLANG_FORMAT $src) ||
-        echo "Format error: clang-format for file $src" 1>&2
+        (echo "Format error: clang-format for file $src" 1>&2; exit 1)
 done
