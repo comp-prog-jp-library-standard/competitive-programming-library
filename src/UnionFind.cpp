@@ -6,6 +6,7 @@ class UnionFind {
 private:
   std::vector<int> disj;
   std::vector<int> rank;
+
 public:
   UnionFind(int n) : disj(n), rank(n) {
     for (int i = 0; i < n; ++i) {
@@ -30,11 +31,9 @@ public:
     } else {
       disj[y] = x;
       if (rank[x] == rank[y]) {
-	++rank[x];
+        ++rank[x];
       }
     }
   }
-  bool is_same_set(int x, int y) {
-    return root(x) == root(y);
-  }
+  bool is_same_set(int x, int y) { return root(x) == root(y); }
 };
