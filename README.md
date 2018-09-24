@@ -1,1 +1,1 @@
-# competitive-programming-library
+# competitive-programming-library [![Build Status](https://travis-ci.org/comp-prog-jp-library-standard/competitive-programming-library.svg?branch=master)](https://travis-ci.org/comp-prog-jp-library-standard/competitive-programming-library)
