@@ -2,11 +2,11 @@
 # This script assumes that all files are already staged.
 # It formats all *.cpp, *.h files
 # and check if they become different from the original ones by using git diff.
-# ${CLANG_FORMAT} is the name of clang-format command we want to use
+# ${CLANG_FORMAT} is the name of clang-format command we want to use.
+# If not set, it defaults to "clang-format".
 if [ -z ${CLANG_FORMAT} ]
 then
-    echo 'Please set the variable ${CLANG_FORMAT}.' 1>&2
-    exit 1
+    CLANG_FORMAT=clang-format
 fi
 
 # All *.cpp/*.h files get formatted.
