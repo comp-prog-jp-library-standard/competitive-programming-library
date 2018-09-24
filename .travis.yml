@@ -1,0 +1,6 @@
+addons:
+  apt:
+    packages:
+    - clang-format-6.0
+script:
+  - ./travis-test.sh
