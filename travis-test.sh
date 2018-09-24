@@ -1,5 +1,7 @@
 #/bin/bash
 set -eux
+which clang-format
+which clang-format-6.0
 for src in `find . | grep -E "\.(cpp|h)$"`
 do
     diff -u $src <(clang-format $src) ||
