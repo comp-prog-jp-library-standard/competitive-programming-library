@@ -5,5 +5,7 @@ addons:
     - llvm-toolchain-trusty-6.0
     packages:
     - clang-format-6.0
+env:
+  - CLANG_FORMAT=clang-format-6.0
 script:
   - ./travis-test.sh
