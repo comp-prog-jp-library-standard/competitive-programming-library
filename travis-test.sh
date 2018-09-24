@@ -1,6 +1,6 @@
-#/bin/bash
+#!/bin/bash
 set -eux
-echo CLANG_FORMAT=$CLANG_FORMAT
+# CLANG_FORMAT is the name of clang-format command we want to use
 for src in `find . | grep -E "\.(cpp|h)$"`
 do
     diff -u $src <($CLANG_FORMAT $src) ||
