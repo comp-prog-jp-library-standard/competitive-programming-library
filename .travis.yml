@@ -8,4 +8,4 @@ addons:
 env:
   - CLANG_FORMAT=clang-format-6.0
 script:
-  - ./travis-test.sh
+  - bin/travis-test.sh

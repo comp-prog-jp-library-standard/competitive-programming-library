@@ -32,4 +32,3 @@ then
    echo "Error: ${ERROR_COUNT} file(s)" 1>&2
    exit 1
 fi
-echo "OK"
