@@ -1,6 +1,13 @@
 # Contribution Guide
 このプロジェクトに貢献したいと思ってくださり、ありがとうございます。
 
+## 議論について
+以下の場所で議論をしています。
+
+- この GitHub プロジェクトの [issue](https://github.com/comp-prog-jp-library-standard/competitive-programming-library/issues)
+- 競プロ Slack ([https://competitiveprogramming.info/slack](https://competitiveprogramming.info/slack)) の #library-standard チャンネル
+
+
 ## Issue
 バグ報告・欲しいライブラリ・機能追加など、歓迎しています。
  [新しい Issue を作る](https://github.com/comp-prog-jp-library-standard/competitive-programming-library/issues/new)
