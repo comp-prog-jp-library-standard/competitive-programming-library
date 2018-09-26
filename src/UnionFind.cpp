@@ -2,6 +2,7 @@
  * Union-Find tree
  * header requirement: vector
  */
+namespace procon {
 class UnionFind {
 private:
   std::vector<int> disj;
@@ -37,3 +38,4 @@ public:
   }
   bool is_same_set(int x, int y) { return root(x) == root(y); }
 };
+} // namespace procon
