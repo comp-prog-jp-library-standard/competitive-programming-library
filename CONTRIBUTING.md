@@ -28,6 +28,6 @@ Pull request を送るべきか迷った場合は、 issue を立てて相談し
 ローカルで以下のことが成り立つかどうか確かめてください:
 
 - ライブラリ用のコード本体は `src/` 以下に、テスト用のコードは `test/` 以下にある
-- `./travis-test.sh` を実行して `OK` という文字列が表示される
+- `bin/travis-test.sh` を実行して `OK` という文字列が表示される
 
-`./travis-test.sh` は内部で `clang-format` を実行するため、あらかじめインストールしておく必要があります。([開発環境](https://github.com/comp-prog-jp-library-standard/competitive-programming-library/wiki/%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83))
+`bin/travis-test.sh` は内部で `clang-format` を実行するため、あらかじめインストールしておく必要があります。([開発環境](https://github.com/comp-prog-jp-library-standard/competitive-programming-library/wiki/%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83))
