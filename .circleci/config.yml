@@ -1,0 +1,15 @@
+workflows:
+  version: 2
+  workflow:
+    jobs:
+    - deploy
+
+jobs:
+  deploy:
+    docker:
+    - image: circleci/python:3.6.1
+    steps:
+      - checkout
+      - deploy:
+          name: Deploy documents
+          command: ./bin/deploy-docs.sh
