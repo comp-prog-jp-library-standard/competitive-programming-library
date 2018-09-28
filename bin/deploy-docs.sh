@@ -10,3 +10,6 @@ git config user.email "is0399ii@ed.ritsumei.ac.jp"
 
 # Generate documents
 python ./bin/generate-docs.py
+
+# Push changes to GitHub Pages
+./bin/push-docs.sh
