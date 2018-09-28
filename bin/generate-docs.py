@@ -9,7 +9,7 @@ def loadFile(fileName):
   with open(fileName) as file:
     return { 'sourceFile': fileName, 'source': file.read() }
 
-# Enumerate files. This includes files in subdirectory.
+# Enumerate files. This includes files in subdirectories.
 fileNames = glob.glob('./src/**.cpp', recursive=True)
 
 # Load file contents.
