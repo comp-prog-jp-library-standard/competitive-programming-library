@@ -14,5 +14,6 @@ git commit -m "Generate pages for ${REVISION} [ci skip]"
 echo "Commited"
 
 # Push docs to gh-pages branch
+set -e
 git push origin -f $(git subtree split --prefix docs master):gh-pages
 echo "Pushed"
