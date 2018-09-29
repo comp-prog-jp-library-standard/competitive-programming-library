@@ -1,6 +1,6 @@
 # Set commiter for auto generated files
-git config user.name "vvataarne"
-git config user.email "is0399ii@ed.ritsumei.ac.jp"
+git config user.name "koba-e964"
+git config user.email "3303362+koba-e964@users.noreply.github.com"
 
 # Generate documents
 python ./bin/generate-docs.py
