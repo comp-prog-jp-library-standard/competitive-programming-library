@@ -1,4 +1,4 @@
-# This script loads all *.cpp files in ./library/cpp/src and bundle in a single file.
+# This script bundles all *.cpp files in ./library/cpp/src into a single file.
 # It generates JSON and puts into ./docs/lib.json file.
 # It requires Python 3.x (not 2.x)
 
