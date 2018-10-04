@@ -45,7 +45,7 @@ def download(pid, redownload=False):
             print('Dowloading {} skipped.'.format(pid))
             return
 
-    print('Dowloading {}...'.format(pid))
+    print('Downloading {}...'.format(pid))
 
     if tmp_dir.exists() and tmp_dir.is_dir():
         shutil.rmtree(tmp_dir)
