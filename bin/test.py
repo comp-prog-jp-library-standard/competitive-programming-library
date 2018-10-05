@@ -48,7 +48,7 @@ class TestSandbox(sandbox.Sandbox):
         #  Returns (float):
         #      maximum time duration (s)
 
-        output_path = 'output'
+        output_path = Path('output')
         start_time = time.time()
 
         exec_code = self.command('timeout -s 9 {} {} < {} > {}'.format(
@@ -101,6 +101,7 @@ class TestSandbox(sandbox.Sandbox):
                 './a.out', time_limit, input_path, answer_path)
             max_time_duration = max(max_time_duration, time_duration)
 
+        self.get_path(path).unlink()
         self.show_result('Passed', testcase_path, max_time_duration, 'green')
 
 
@@ -110,7 +111,7 @@ def test(source_path):
         data = yaml.load(f)
 
     # TODO: Support other languages
-    testcase_path = None
+    testcase_path = []
     time_limit = 8
 
     # Set time limit
@@ -123,14 +124,20 @@ def test(source_path):
         if download['site'] == 'aoj':
             problem_id = download['problem_id']
             aoj.download(problem_id)
-            testcase_path = Path('testcases/aoj/') / problem_id
+            testcase_path.append(Path('testcases/aoj/') / problem_id)
         else:
             raise Exception('Unknown site {}'.format(download['site']))
+
+    # Specify testcase directory
+    if 'test' in data:
+        for path in data['test']:
+            testcase_path.append(Path(path))
 
     # Judge
     with TestSandbox('.workspace') as sandbox:
         sandbox.compile(source_path)
-        sandbox.test(testcase_path, time_limit)
+        for path in testcase_path:
+            sandbox.test(path, time_limit)
 
 
 if __name__ == '__main__':
