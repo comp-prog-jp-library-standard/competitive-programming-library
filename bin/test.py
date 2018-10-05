@@ -104,13 +104,12 @@ class TestSandbox(sandbox.Sandbox):
         self.show_result('Passed', testcase_path, max_time_duration, 'green')
 
 
-def test(path):
-    summary_path = path / 'testcase.yml'
+def test(source_path):
+    summary_path = source_path.with_suffix('.yml')
     with summary_path.open() as f:
         data = yaml.load(f)
 
     # TODO: Support other languages
-    source_path = path / 'main.cpp'
     testcase_path = None
     time_limit = 8
 
