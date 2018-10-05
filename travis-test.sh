@@ -33,3 +33,9 @@ then
    exit 1
 fi
 echo "OK"
+
+for TEST_FILE in `find library/cpp/tests | grep -E "\.cpp"`
+do
+    echo ${TEST_FILE}
+    ./bin/test.py ${TEST_FILE}
+done
