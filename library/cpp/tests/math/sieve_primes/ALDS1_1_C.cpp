@@ -1,4 +1,4 @@
-// @depends_on library/cpp/src/math/eratosthenes.cpp
+// @depends_on library/cpp/src/math/sieve_primes.cpp
 
 const int LIMIT = 100000000;
 
