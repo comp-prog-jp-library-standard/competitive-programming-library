@@ -7,7 +7,7 @@
  * header requirement: vector
  */
 namespace procon {
-std::vector<bool> eratosthenes(int n) {
+std::vector<bool> sieve_primes(int n) {
   std::vector<bool> prime(n + 1);
   for (int i = 2; i <= n; ++i) {
     prime[i] = true;
@@ -16,7 +16,7 @@ std::vector<bool> eratosthenes(int n) {
     if (not prime[i]) {
       continue;
     }
-    for (int j = 2 * i; j <= n; j += i) {
+    for (int j = i * i; j <= n; j += i) {
       prime[j] = false;
     }
   }
