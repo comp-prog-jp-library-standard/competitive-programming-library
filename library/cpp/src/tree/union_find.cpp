@@ -8,15 +8,15 @@ private:
   struct nodeinfo {
     int par;
     int rank;
-    nodeinfo() : par(0), rank(0) {}
-    nodeinfo(int par, int rank) : par(par), rank(rank) {}
+    nodeinfo(int par) : par(par), rank(0) {}
   };
   std::vector<nodeinfo> node;
 
 public:
-  UnionFind(int n) : node(n) {
+  UnionFind(int n) : node() {
+    node.reserve(n);
     for (int i = 0; i < n; ++i) {
-      node[i] = nodeinfo(i, 0);
+      node.push_back(nodeinfo(i));
     }
   }
   int root(int x) {
