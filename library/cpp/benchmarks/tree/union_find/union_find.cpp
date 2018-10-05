@@ -6,8 +6,8 @@ int main(void) {
   int seed;
   std::cin >> log_size >> n_query >> seed;
 
-  assert (0 <= log_size && log_size <= 30);
-  assert (0 <= n_query);
+  assert(0 <= log_size && log_size <= 30);
+  assert(0 <= n_query);
 
   const int size = 1 << log_size;
   const int mask = size - 1;
@@ -21,8 +21,7 @@ int main(void) {
     const int y = mt() & mask;
     if (com) {
       res = res * 17 + (uf.is_same_set(x, y) ? 1 : 0);
-    }
-    else {
+    } else {
       uf.unite(x, y);
     }
   }
