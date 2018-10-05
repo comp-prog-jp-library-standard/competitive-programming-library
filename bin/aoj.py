@@ -42,7 +42,7 @@ def download(pid, redownload=False):
         if redownload:
             shutil.rmtree(path)
         else:
-            print('Dowloading {} skipped.'.format(pid))
+            print('Downloading {} skipped.'.format(pid))
             return
 
     print('Downloading {}...'.format(pid))
