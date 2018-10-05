@@ -5,21 +5,25 @@
 namespace procon {
 class UnionFind {
 private:
-  std::vector<int> disj;
-  std::vector<int> rank;
+  struct nodeinfo {
+    int par;
+    int rank;
+    nodeinfo(int par) : par(par), rank(0) {}
+  };
+  std::vector<nodeinfo> node;
 
 public:
-  UnionFind(int n) : disj(n), rank(n) {
+  UnionFind(int n) : node() {
+    node.reserve(n);
     for (int i = 0; i < n; ++i) {
-      disj[i] = i;
-      rank[i] = 0;
+      node.push_back(nodeinfo(i));
     }
   }
   int root(int x) {
-    if (disj[x] == x) {
+    if (node[x].par == x) {
       return x;
     }
-    return disj[x] = root(disj[x]);
+    return node[x].par = root(node[x].par);
   }
   void unite(int x, int y) {
     x = root(x);
@@ -27,12 +31,12 @@ public:
     if (x == y) {
       return;
     }
-    if (rank[x] < rank[y]) {
-      disj[x] = y;
+    if (node[x].rank < node[y].rank) {
+      node[x].par = y;
     } else {
-      disj[y] = x;
-      if (rank[x] == rank[y]) {
-        ++rank[x];
+      node[y].par = x;
+      if (node[x].rank == node[y].rank) {
+        ++node[x].rank;
       }
     }
   }
