@@ -4,7 +4,8 @@ addons:
     - ubuntu-toolchain-r-test
     - llvm-toolchain-trusty-6.0
     packages:
-    - g++-7
+    - g++-5
+    - clang++-3.8
     - clang-format-6.0
 env:
   - CLANG_FORMAT=clang-format-6.0
@@ -13,7 +14,9 @@ install:
   - pyenv global 3.6.3
   - pip install --upgrade pip
   - pip install PyYAML requests termcolor
-  - mkdir .bin && ln -s /usr/local/bin/g++-7 ./bin/g++
+  - mkdir .bin
+  - ln -s /usr/local/bin/g++-5 ./bin/g++
+  - ln -s /usr/local/bin/clang++-3.8 ./bin/clang++
   - export PATH=${PWD}/.bin:${PATH}
 script:
   - ./travis-test.sh
