@@ -5,6 +5,8 @@ template <class I, class BiOp> class SegmentTree {
   I e;
 
 public:
+  typedef int size_type;
+  typedef I value_type;
   SegmentTree(int n_, BiOp op, I e) : op(op), e(e) {
     n = 1;
     while (n < n_)
@@ -43,4 +45,5 @@ public:
     }
     return op(left, right);
   }
+  I operator[](int idx) const { return dat[idx + n - 1]; }
 };
