@@ -16,7 +16,7 @@ public:
   UnionFind(int n) : node() {
     node.reserve(n);
     for (int i = 0; i < n; ++i) {
-      node.push_back(nodeinfo(i));
+      node.emplace_back(i);
     }
   }
   int root(int x) {
