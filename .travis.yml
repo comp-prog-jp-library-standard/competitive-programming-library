@@ -12,7 +12,7 @@ env:
     - GCC_CXX=g++
     - GCC_CXX_FLAGS="-std=gnu++1y -O2"
     - CLANG_CXX=clang++
-    - CLANG_CXX_FLAGS="-std=c++14 -stdlib=libc++ -O2"
+    - CLANG_CXX_FLAGS="-std=c++14 -O2"
     - CLANG_FORMAT=clang-format-6.0
 install:
   - yes | pyenv install 3.6.3
