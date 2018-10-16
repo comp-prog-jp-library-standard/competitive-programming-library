@@ -1,3 +1,5 @@
+namespace procon {
+namespace internal {
 template <class I, class BiOp> class SegmentTree {
   int n;
   std::vector<I> dat;
@@ -47,3 +49,11 @@ public:
   }
   I operator[](int idx) const { return dat[idx + n - 1]; }
 };
+} // namespace internal
+
+template <class I, class BiOp>
+internal::SegmentTree<I, BiOp> make_segment_tree(int size, BiOp op, I e) {
+  internal::SegmentTree<I, BiOp> tree(size, op, std::move(e));
+  return tree;
+}
+} // namespace procon
