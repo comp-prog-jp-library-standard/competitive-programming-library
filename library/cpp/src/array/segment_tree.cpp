@@ -9,7 +9,7 @@ template <class I, class BiOp> class SegmentTree {
 public:
   typedef int size_type;
   typedef I value_type;
-  SegmentTree(int n_, BiOp op, I e) : op(op), e(e) {
+  SegmentTree(size_type n_, BiOp op, value_type e) : op(op), e(e) {
     n = 1;
     while (n < n_)
       n *= 2; // n is a power of 2
@@ -19,7 +19,7 @@ public:
     }
   }
   /* ary[k] <- v */
-  void update(int k, I v) {
+  void update(size_type k, value_type v) {
     k += n - 1;
     dat[k] = v;
     while (k > 0) {
@@ -30,9 +30,9 @@ public:
   /* http://proc-cpuinfo.fixstars.com/2017/07/optimize-segment-tree/
    * [a, b)
    */
-  I query(int a, int b) const {
-    I left = e;
-    I right = e;
+  value_type query(size_type a, size_type b) const {
+    value_type left = e;
+    value_type right = e;
     a += n - 1;
     b += n - 1;
     while (a < b) {
@@ -47,7 +47,7 @@ public:
     }
     return op(left, right);
   }
-  I operator[](int idx) const { return dat[idx + n - 1]; }
+  value_type operator[](size_type idx) const { return dat[idx + n - 1]; }
 };
 } // namespace internal
 
