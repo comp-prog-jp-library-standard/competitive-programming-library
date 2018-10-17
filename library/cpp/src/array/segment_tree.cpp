@@ -48,6 +48,7 @@ public:
     return op(left, right);
   }
   value_type operator[](size_type idx) const { return dat[idx + n - 1]; }
+  size_type size() const { return n; }
 };
 } // namespace internal
 
