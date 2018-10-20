@@ -53,12 +53,12 @@ public:
 
 template <class T> class generic_min {
 public:
-  T operator()(T x, T y) const { return min(x, y); }
+  T operator()(T x, T y) const { return std::min(x, y); }
 };
 
 template <class T> class generic_max {
 public:
-  T operator()(T x, T y) const { return max(x, y); }
+  T operator()(T x, T y) const { return std::max(x, y); }
 };
 } // namespace internal
 
@@ -71,17 +71,17 @@ internal::SegmentTree<I, BiOp> make_segment_tree(int size, BiOp op, I e) {
 template <class I>
 internal::SegmentTree<I, internal::generic_min<I>>
 make_range_min_query(int n, I infinity) {
-  make_segment_tree(n, internal::generic_min<I>(), infinity);
+  return make_segment_tree(n, internal::generic_min<I>(), infinity);
 }
 
 template <class I>
 internal::SegmentTree<I, internal::generic_max<I>>
 make_range_max_query(int n, I negative_infinity) {
-  make_segment_tree(n, internal::generic_max<I>(), negative_infinity);
+  return make_segment_tree(n, internal::generic_max<I>(), negative_infinity);
 }
 
 template <class I>
 internal::SegmentTree<I, std::plus<I>> make_range_sum_query(int n, I zero) {
-  make_segment_tree(n, std::plus<I>(), zero);
+  return make_segment_tree(n, std::plus<I>(), zero);
 }
 } // namespace procon
