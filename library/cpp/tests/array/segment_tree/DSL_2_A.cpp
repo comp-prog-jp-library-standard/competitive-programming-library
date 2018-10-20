@@ -3,9 +3,8 @@
 int main(void) {
   int n, q;
   scanf("%d%d", &n, &q);
-  auto op = [](int l, int r) { return std::min(l, r); };
   int id = std::numeric_limits<int>::max();
-  auto seg = procon::make_segment_tree(n, op, id);
+  auto seg = procon::make_range_min_query(n, id);
   while (q--) {
     int com, x, y;
     scanf("%d%d%d", &com, &x, &y);

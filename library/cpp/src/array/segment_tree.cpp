@@ -50,11 +50,38 @@ public:
   value_type operator[](size_type idx) const { return dat[idx + n - 1]; }
   size_type size() const { return n; }
 };
+
+template <class T> class generic_min {
+public:
+  T operator()(T x, T y) const { return min(x, y); }
+};
+
+template <class T> class generic_max {
+public:
+  T operator()(T x, T y) const { return max(x, y); }
+};
 } // namespace internal
 
 template <class I, class BiOp>
 internal::SegmentTree<I, BiOp> make_segment_tree(int size, BiOp op, I e) {
   internal::SegmentTree<I, BiOp> tree(size, op, std::move(e));
   return tree;
+}
+
+template <class I>
+internal::SegmentTree<I, internal::generic_min<I>>
+make_range_min_query(int n, I infinity) {
+  make_segment_tree(n, internal::generic_min<I>(), infinity);
+}
+
+template <class I>
+internal::SegmentTree<I, internal::generic_max<I>>
+make_range_max_query(int n, I negative_infinity) {
+  make_segment_tree(n, internal::generic_max<I>(), negative_infinity);
+}
+
+template <class I>
+internal::SegmentTree<I, std::plus<I>> make_range_sum_query(int n, I zero) {
+  make_segment_tree(n, std::plus<I>(), zero);
 }
 } // namespace procon
