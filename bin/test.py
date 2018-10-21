@@ -23,7 +23,7 @@ class TestSandbox(sandbox.Sandbox):
             f.write(preprocessor.preprocess([str(path)]))
 
         compiler = os.environ['CXX']
-        options = os.environ['CXX_FLAGS'] if os.environ['CXX_FLAGS'] else ''
+        options = os.environ['CXX_FLAGS'] or ''
         result = self.command(
             '{} {} main.cpp -o ./a.out'.format(compiler, options))
 
