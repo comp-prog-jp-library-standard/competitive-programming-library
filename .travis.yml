@@ -9,19 +9,14 @@ addons:
     - clang-format-6.0
 env:
   global:
-    - GCC_CXX=g++
-    - GCC_CXX_FLAGS="-std=gnu++1y -O2"
-    - CLANG_CXX=clang++
-    - CLANG_CXX_FLAGS="-std=c++14 -O2"
     - CLANG_FORMAT=clang-format-6.0
+  matrix:
+    - CXX=/usr/local/bin/g++-5 CXX_FLAGS="-std=gnu++1y -O2"
+    - CXX=/usr/local/bin/clang++-3.8 CXX_FLAGS="-std=c++14 -O2"
 install:
   - yes | pyenv install 3.6.3
   - pyenv global 3.6.3
   - pip install --upgrade pip
   - pip install PyYAML requests termcolor
-  - mkdir .bin
-  - ln -s /usr/local/bin/g++-5 ./bin/g++
-  - ln -s /usr/local/bin/clang++-3.8 ./bin/clang++
-  - export PATH=${PWD}/.bin:${PATH}
 script:
   - ./travis-test.sh

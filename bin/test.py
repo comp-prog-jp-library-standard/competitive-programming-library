@@ -15,13 +15,15 @@ import sandbox
 
 
 class TestSandbox(sandbox.Sandbox):
-    def compile(self, path, compiler, options):
+    def compile(self, path):
         # TODO: Support other languages
         source_path = self.get_path('main.cpp')
-        source_path.touch(mode=0o666, exist_ok=True)
+        source_path.touch(mode=0o666, exist_ok=False)
         with (source_path).open(mode='w') as f:
             f.write(preprocessor.preprocess([str(path)]))
 
+        compiler = os.environ['CXX']
+        options = os.environ['CXX_FLAGS'] if os.environ['CXX_FLAGS'] else ''
         result = self.command(
             '{} {} main.cpp -o ./a.out'.format(compiler, options))
 
@@ -29,10 +31,10 @@ class TestSandbox(sandbox.Sandbox):
             print('{}: {}'.format(path, colored('Compile Error', 'cyan')))
             raise Exception('Compile Error')
 
-    def show_result(self, result, input_path_name, time_duration, color):
+    def show_result(self, result, input_path, time_duration, color):
         time_duration = round(time_duration * 1000)
         print('{}: {} ({} ms)'.format(
-             input_path_name, colored(result, color), time_duration))
+             input_path.name, colored(result, color), time_duration))
 
     def show_file(self, path):
         print('=== {} ==='.format(path.name))
@@ -81,10 +83,10 @@ class TestSandbox(sandbox.Sandbox):
             self.show_file(output_path)
             raise Exception('Wrong Answer')
 
-        self.show_result('OK', input_path.name, time_duration, 'green')
+        self.show_result('OK', input_path, time_duration, 'green')
         return time_duration
 
-    def test(self, compiler, testcase_path, time_limit):
+    def test(self, testcase_path, time_limit):
         path = self.get_path('tests')
         path.symlink_to('..' / testcase_path, target_is_directory=True)
         testcase = set(t.stem for t in path.iterdir() if t.suffix == '.in')
@@ -103,7 +105,7 @@ class TestSandbox(sandbox.Sandbox):
             max_time_duration = max(max_time_duration, time_duration)
 
         self.get_path(path).unlink()
-        self.show_result('Passed', '{}({})'.format(testcase_path.name, compiler), max_time_duration, 'green')
+        self.show_result('Passed', testcase_path, max_time_duration, 'green')
 
 
 def test(source_path):
@@ -136,22 +138,14 @@ def test(source_path):
 
     # Judge
     with TestSandbox('.workspace') as sandbox:
-        # GCC
-        if os.environ.get('GCC_CXX'):
-            gcc_compiler = os.environ['GCC_CXX']
-            gcc_options = os.environ['GCC_CXX_FLAGS']
-            sandbox.compile(source_path, gcc_compiler, gcc_options)
+        if os.environ.get('CXX'):
+            sandbox.compile(source_path)
             for path in testcase_path:
-                sandbox.test(gcc_compiler, path, time_limit)
-                
-        # CLANG
-        if os.environ.get('CLANG_CXX'):
-            clang_compiler = os.environ['CLANG_CXX']
-            clang_options = os.environ['CLANG_CXX_FLAGS']
-            sandbox.compile(source_path, clang_compiler, clang_options)
-            for path in testcase_path:
-                sandbox.test(clang_compiler, path, time_limit)
-
+                sandbox.test(path, time_limit)
+        else:
+            print('No compiler found for tests')
+            raise Exception('CXX is not set')
+            
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='diff')
