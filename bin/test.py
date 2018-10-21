@@ -22,8 +22,8 @@ class TestSandbox(sandbox.Sandbox):
         with (source_path).open(mode='w') as f:
             f.write(preprocessor.preprocess([str(path)]))
 
-        compiler = os.getenv('CXX')
-        options = os.getenv('CXX_FLAGS', '')
+        compiler = os.getenv('CXX', 'g++')
+        options = os.getenv('CXX_FLAGS', '-std=c++14 -O2 -Wall')
         result = self.command(
             '{} {} main.cpp -o ./a.out'.format(compiler, options))
 
@@ -138,13 +138,10 @@ def test(source_path):
 
     # Judge
     with TestSandbox('.workspace') as sandbox:
-        if os.getenv('CXX'):
-            sandbox.compile(source_path)
-            for path in testcase_path:
-                sandbox.test(path, time_limit)
-        else:
-            print('No compiler found for tests')            
-            
+        sandbox.compile(source_path)
+        for path in testcase_path:
+            sandbox.test(path, time_limit)
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='diff')
