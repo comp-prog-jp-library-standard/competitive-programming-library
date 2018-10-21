@@ -1,25 +1,18 @@
-matrix:
-  include:
-    - addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-5
-            - clang-format-6.0
-      env:
-        - CXX=g++-5 CXX_FLAGS="-std=gnu++1y -O2"
-    - addons:
-        apt:
-          sources:
-            - llvm-toolchain-trusty-6.0
-          packages:
-            - clang++-3.8
-            - clang-format-6.0
-      env:
-       - CXX=clang++-3.8 CXX_FLAGS="-std=c++14 -O2"
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    - llvm-toolchain-trusty-6.0
+    packages:
+    - g++-5
+    - clang++-3.8
+    - clang-format-6.0
 env:
-  - CLANG_FORMAT=clang-format-6.0
+  global:
+    - CLANG_FORMAT=clang-format-6.0
+  matrix:
+    - CXX=g++-5 CXX_FLAGS="-std=gnu++1y -O2"
+- CXX=clang++-3.8 CXX_FLAGS="-std=c++14 -O2"
 install:
   - yes | pyenv install 3.6.3
   - pyenv global 3.6.3
