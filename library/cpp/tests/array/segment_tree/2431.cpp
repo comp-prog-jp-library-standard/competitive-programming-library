@@ -8,8 +8,7 @@ int main(void) {
   std::vector<int> x(n);
   for (int i = 0; i < n; ++i)
     scanf("%d", &x[i]);
-  auto seg =
-      procon::make_range_max_query(n + 1, std::numeric_limits<ll>::min());
+  auto seg = procon::make_range_max_query<ll>(n + 1);
   ll ma = 0;
   for (int i = 0; i < n; ++i) {
     ll res = std::max(seg.query(1, x[i]), 0LL);
