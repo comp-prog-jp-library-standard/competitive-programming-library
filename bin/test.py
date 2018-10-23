@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
+import os
 from pathlib import Path
 import time
 import yaml
@@ -21,8 +22,10 @@ class TestSandbox(sandbox.Sandbox):
         with (source_path).open(mode='w') as f:
             f.write(preprocessor.preprocess([str(path)]))
 
+        compiler = os.getenv('CXX', 'g++')
+        options = os.getenv('CXX_FLAGS', '-std=c++14 -O2 -Wall')
         result = self.command(
-            'g++ --std=c++11 -O2 -Wall main.cpp -o ./a.out'.format(path))
+            '{} {} main.cpp -o ./a.out'.format(compiler, options))
 
         if result != 0:
             print('{}: {}'.format(path, colored('Compile Error', 'cyan')))
