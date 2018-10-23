@@ -1,7 +1,6 @@
 namespace procon {
 
-template <typename Cost>
-class WeightedGraph {
+template <typename Cost> class WeightedGraph {
 public:
   class edge_type {
   public:
