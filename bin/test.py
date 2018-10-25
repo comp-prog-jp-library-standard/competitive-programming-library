@@ -2,6 +2,7 @@
 
 import argparse
 from pathlib import Path
+import os
 import time
 import yaml
 
@@ -130,8 +131,14 @@ def test(source_path):
 
     # Specify testcase directory
     if 'test' in data:
-        for path in data['test']:
-            testcase_path.append(Path(path))
+        testcase = data['test']
+        path = testcase['path']
+        if 'generate' in testcase:
+            generate = testcase['generate']
+            exec_code = os.system(generate + ' ' + path)
+            if exec_code != 0:
+                raise Exception('Failed to generate input files.')
+        testcase_path.append(Path(path))
 
     # Judge
     with TestSandbox('.workspace') as sandbox:
