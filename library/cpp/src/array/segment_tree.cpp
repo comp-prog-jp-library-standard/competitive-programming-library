@@ -1,23 +1,23 @@
 namespace procon {
 namespace internal {
 template <class Op> class SegmentTree {
-  using I = typename Op::value_type;
   int n;
-  std::vector<I> dat;
+  std::vector<typename Op::value_type> dat;
 
 public:
   typedef int size_type;
+  using value_type = typename Op::value_type;
   SegmentTree(size_type n_) {
     n = 1;
     while (n < n_)
       n *= 2; // n is a power of 2
-    dat.resize(2 * n);
+    dat.resize(2 * n, Op::id);
     for (int i = 0; i < 2 * n - 1; i++) {
       dat[i] = Op::id;
     }
   }
   /* ary[k] <- v */
-  void update(size_type k, typename Op::value_type v) {
+  void update(size_type k, value_type v) {
     k += n - 1;
     dat[k] = v;
     while (k > 0) {
@@ -28,7 +28,7 @@ public:
   /* http://proc-cpuinfo.fixstars.com/2017/07/optimize-segment-tree/
    * [a, b)
    */
-  typename Op::value_type query(size_type a, size_type b) const {
+  value_type query(size_type a, size_type b) const {
     typename Op::value_type left = Op::id;
     typename Op::value_type right = Op::id;
     a += n - 1;
@@ -45,25 +45,25 @@ public:
     }
     return Op::op(left, right);
   }
-  typename Op::value_type operator[](size_type idx) const {
-    return dat[idx + n - 1];
-  }
+  value_type operator[](size_type idx) const { return dat[idx + n - 1]; }
   size_type size() const { return n; }
 };
 
 template <class T> class generic_min {
 public:
   using value_type = T;
-  static const T id = std::numeric_limits<T>::max();
+  static const T id;
   static T op(T x, T y) { return std::min(x, y); }
 };
+template <class T> const T generic_min<T>::id = std::numeric_limits<T>::max();
 
 template <class T> class generic_max {
 public:
   using value_type = T;
-  static const T id = std::numeric_limits<T>::min();
+  static const T id;
   static T op(T x, T y) { return std::max(x, y); }
 };
+template <class T> const T generic_max<T>::id = std::numeric_limits<T>::min();
 
 template <class T> class generic_sum {
 public:
