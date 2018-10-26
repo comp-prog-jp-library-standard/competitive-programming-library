@@ -1,6 +1,8 @@
 namespace procon {
 
-template <typename Cost> class WeightedGraph {
+template <typename Cost, typename Compare = std::less<Cost>,
+          typename Add = std::plus<Cost>>
+class WeightedGraph {
 public:
   class edge_type {
   public:
@@ -14,8 +16,8 @@ public:
   using node_type = typename edge_type::node_type;
   using weight_type = typename edge_type::weight_type;
   using cost_type = Cost;
-  // using compare = std::greator<Cost>;
-  // using add = std::plus<Cost>;
+  using compare = Compare;
+  using add = Add;
   using edges_type = std::vector<edge_type>;
   using iterator = typename edges_type::iterator;
   using const_iterator = typename edges_type::const_iterator;
