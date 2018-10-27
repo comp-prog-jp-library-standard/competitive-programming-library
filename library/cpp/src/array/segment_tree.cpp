@@ -73,18 +73,22 @@ public:
   size_type size() const { return n; }
 };
 
+template <class I> using RangeMinQuery = SegmentTree<internal::generic_min<I>>;
+template <class I> using RangeMaxQuery = SegmentTree<internal::generic_max<I>>;
+template <class I> using RangeSumQuery = SegmentTree<internal::generic_sum<I>>;
+
 template <class I>
-internal::SegmentTree<internal::generic_min<I>> make_range_min_query(int n) {
-  return internal::SegmentTree<internal::generic_min<I>>(n);
+SegmentTree<internal::generic_min<I>> make_range_min_query(int n) {
+  return SegmentTree<internal::generic_min<I>>(n);
 }
 
 template <class I>
-internal::SegmentTree<internal::generic_max<I>> make_range_max_query(int n) {
-  return internal::SegmentTree<internal::generic_max<I>>(n);
+SegmentTree<internal::generic_max<I>> make_range_max_query(int n) {
+  return SegmentTree<internal::generic_max<I>>(n);
 }
 
 template <class I>
-internal::SegmentTree<internal::generic_sum<I>> make_range_sum_query(int n) {
-  return internal::SegmentTree<internal::generic_sum<I>>(n);
+SegmentTree<internal::generic_sum<I>> make_range_sum_query(int n) {
+  return SegmentTree<internal::generic_sum<I>>(n);
 }
 } // namespace procon
