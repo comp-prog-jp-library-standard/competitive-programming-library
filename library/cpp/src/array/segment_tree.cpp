@@ -25,21 +25,20 @@ public:
 } // namespace internal
 
 template <class Op> class SegmentTree {
-  int n;
+  const int n;
   std::vector<typename Op::value_type> dat;
+  static int calculate_size(int n_) {
+    int n = 1;
+    while (n < n_)
+      n *= 2; // n is a power of 2
+    return n;
+  }
 
 public:
   typedef int size_type;
   using value_type = typename Op::value_type;
-  SegmentTree(size_type n_) {
-    n = 1;
-    while (n < n_)
-      n *= 2; // n is a power of 2
-    dat.resize(2 * n, Op::id);
-    for (int i = 0; i < 2 * n - 1; i++) {
-      dat[i] = Op::id;
-    }
-  }
+  SegmentTree(size_type size)
+      : n(calculate_size(size)), dat(2 * n - 1, Op::id) {}
   /* ary[k] <- v */
   void update(size_type k, value_type v) {
     k += n - 1;
@@ -77,18 +76,15 @@ template <class I> using RangeMinQuery = SegmentTree<internal::generic_min<I>>;
 template <class I> using RangeMaxQuery = SegmentTree<internal::generic_max<I>>;
 template <class I> using RangeSumQuery = SegmentTree<internal::generic_sum<I>>;
 
-template <class I>
-SegmentTree<internal::generic_min<I>> make_range_min_query(int n) {
-  return SegmentTree<internal::generic_min<I>>(n);
+template <class I> RangeMinQuery<I> make_range_min_query(int n) {
+  return RangeMinQuery<I>(n);
 }
 
-template <class I>
-SegmentTree<internal::generic_max<I>> make_range_max_query(int n) {
-  return SegmentTree<internal::generic_max<I>>(n);
+template <class I> RangeMaxQuery<I> make_range_max_query(int n) {
+  return RangeMaxQuery<I>(n);
 }
 
-template <class I>
-SegmentTree<internal::generic_sum<I>> make_range_sum_query(int n) {
-  return SegmentTree<internal::generic_sum<I>>(n);
+template <class I> RangeSumQuery<I> make_range_sum_query(int n) {
+  return RangeSumQuery<I>(n);
 }
 } // namespace procon
