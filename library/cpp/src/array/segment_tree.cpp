@@ -1,5 +1,29 @@
 namespace procon {
 namespace internal {
+template <class T> class generic_min {
+public:
+  using value_type = T;
+  static const T id;
+  static T op(T x, T y) { return std::min(x, y); }
+};
+template <class T> const T generic_min<T>::id = std::numeric_limits<T>::max();
+
+template <class T> class generic_max {
+public:
+  using value_type = T;
+  static const T id;
+  static T op(T x, T y) { return std::max(x, y); }
+};
+template <class T> const T generic_max<T>::id = std::numeric_limits<T>::min();
+
+template <class T> class generic_sum {
+public:
+  using value_type = T;
+  static const T id = 0;
+  static T op(T x, T y) { return x + y; }
+};
+} // namespace internal
+
 template <class Op> class SegmentTree {
   int n;
   std::vector<typename Op::value_type> dat;
@@ -48,30 +72,6 @@ public:
   value_type operator[](size_type idx) const { return dat[idx + n - 1]; }
   size_type size() const { return n; }
 };
-
-template <class T> class generic_min {
-public:
-  using value_type = T;
-  static const T id;
-  static T op(T x, T y) { return std::min(x, y); }
-};
-template <class T> const T generic_min<T>::id = std::numeric_limits<T>::max();
-
-template <class T> class generic_max {
-public:
-  using value_type = T;
-  static const T id;
-  static T op(T x, T y) { return std::max(x, y); }
-};
-template <class T> const T generic_max<T>::id = std::numeric_limits<T>::min();
-
-template <class T> class generic_sum {
-public:
-  using value_type = T;
-  static const T id = 0;
-  static T op(T x, T y) { return x + y; }
-};
-} // namespace internal
 
 template <class I>
 internal::SegmentTree<internal::generic_min<I>> make_range_min_query(int n) {
