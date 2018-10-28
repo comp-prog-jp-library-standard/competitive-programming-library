@@ -3,7 +3,7 @@
 int main(void) {
   int n, q;
   scanf("%d%d", &n, &q);
-  auto seg = procon::make_range_min_query<int>(n);
+  auto seg = procon::RangeMinQuery<int>(n);
   while (q--) {
     int com, x, y;
     scanf("%d%d%d", &com, &x, &y);

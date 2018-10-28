@@ -75,16 +75,4 @@ public:
 template <class I> using RangeMinQuery = SegmentTree<internal::generic_min<I>>;
 template <class I> using RangeMaxQuery = SegmentTree<internal::generic_max<I>>;
 template <class I> using RangeSumQuery = SegmentTree<internal::generic_sum<I>>;
-
-template <class I> RangeMinQuery<I> make_range_min_query(int n) {
-  return RangeMinQuery<I>(n);
-}
-
-template <class I> RangeMaxQuery<I> make_range_max_query(int n) {
-  return RangeMaxQuery<I>(n);
-}
-
-template <class I> RangeSumQuery<I> make_range_sum_query(int n) {
-  return RangeSumQuery<I>(n);
-}
 } // namespace procon
