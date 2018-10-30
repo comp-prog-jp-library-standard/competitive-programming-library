@@ -1,3 +1,6 @@
+cache:
+  - apt
+
 matrix:
   include:
     - addons:
