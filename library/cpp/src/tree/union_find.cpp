@@ -8,7 +8,7 @@ private:
   struct nodeinfo {
     int par;
     int rank;
-    nodeinfo(int par) : par(par), rank(0) {}
+    nodeinfo(int p) : par(p), rank(0) {}
   };
   std::vector<nodeinfo> node;
 
