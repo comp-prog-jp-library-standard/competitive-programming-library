@@ -4,7 +4,7 @@ template <class T> class generic_min {
 public:
   using value_type = T;
   static const T id;
-  static T op(T x, T y) { return std::min(x, y); }
+  static const T &op(const T &x, const T &y) { return std::min(x, y); }
 };
 template <class T> const T generic_min<T>::id = std::numeric_limits<T>::max();
 
@@ -12,7 +12,7 @@ template <class T> class generic_max {
 public:
   using value_type = T;
   static const T id;
-  static T op(T x, T y) { return std::max(x, y); }
+  static const T &op(const T &x, const T &y) { return std::max(x, y); }
 };
 template <class T> const T generic_max<T>::id = std::numeric_limits<T>::min();
 
@@ -20,7 +20,7 @@ template <class T> class generic_sum {
 public:
   using value_type = T;
   static const T id = 0;
-  static T op(T x, T y) { return x + y; }
+  static T op(const T &x, const T &y) { return x + y; }
 };
 } // namespace internal
 
