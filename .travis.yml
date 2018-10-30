@@ -11,23 +11,22 @@ matrix:
             - g++-5
             - clang-format-6.0
       env:
-        global:
-          - CXX=g++-5
-          - CXX_FLAGS="-std=gnu++1y -O2 -Wall -Wextra -Wshadow -Wno-unused-result -Werror"
+        CXX=g++-5
+        CXX_FLAGS="-std=gnu++1y -O2 -Wall -Wextra -Wshadow -Wno-unused-result -Werror"
 
     - addons:
         apt:
           sources:
             - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-3.8
             - llvm-toolchain-trusty-6.0
           packages:
             - clang++-3.8
             - libc++-dev
             - clang-format-6.0
       env:
-        global:
-          - CXX=clang++-3.8
-          - CXX_FLAGS="-std=c++14 -stdlib=libc++ -Wall -Wextra -Wshadow -Wno-unused-result -Werror"
+        CXX=clang++-3.8
+        CXX_FLAGS="-std=c++14 -stdlib=libc++ -Wall -Wextra -Wshadow -Wno-unused-result -Werror"
 
 install:
   - yes | pyenv install 3.6.3
@@ -35,4 +34,5 @@ install:
   - pip install --upgrade pip
   - pip install PyYAML requests termcolor
 script:
+  - ${CXX} --version
   - ./travis-test.sh
