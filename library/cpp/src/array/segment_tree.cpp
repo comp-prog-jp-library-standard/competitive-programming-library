@@ -37,8 +37,8 @@ template <class Op> class SegmentTree {
 public:
   typedef int size_type;
   using value_type = typename Op::value_type;
-  SegmentTree(size_type size)
-      : n(calculate_size(size)), dat(2 * n - 1, Op::id) {}
+  SegmentTree(size_type count)
+      : n(calculate_size(count)), dat(2 * n - 1, Op::id) {}
   /* ary[k] <- v */
   void update(size_type k, value_type v) {
     k += n - 1;
