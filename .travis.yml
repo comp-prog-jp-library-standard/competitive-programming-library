@@ -14,7 +14,7 @@ matrix:
             - g++-5
             - clang-format-6.0
       env:
-        - CXX=g++-5 && CXXFLAGS="-std=gnu++1y -O2 -Wall -Wextra -Wshadow -Wno-unused-result -Werror"
+        CXX=g++-5 && CXXFLAGS="-std=gnu++1y -O2 -Wall -Wextra -Wshadow -Wno-unused-result -Werror"
 
     - addons:
         apt:
@@ -26,7 +26,7 @@ matrix:
             - libc++-dev
             - clang-format-6.0
       env:
-        - CXX=clang++-3.8 && CXXFLAGS="-std=c++14 -stdlib=libc++ -Wall -Wextra -Wshadow -Wno-unused-result -Werror"
+        CXX=clang++-3.8 && CXXFLAGS="-std=c++14 -stdlib=libc++ -Wall -Wextra -Wshadow -Wno-unused-result -Werror"
 
 install:
   - yes | pyenv install 3.6.3
