@@ -3,6 +3,7 @@
 import argparse
 import os
 from pathlib import Path
+import subprocess
 import time
 import yaml
 
@@ -22,10 +23,10 @@ class TestSandbox(sandbox.Sandbox):
         with (source_path).open(mode='w') as f:
             f.write(preprocessor.preprocess([str(path)]))
 
-        compiler = os.getenv('CXX', 'g++')
-        options = os.getenv('CXX_FLAGS', '-std=c++14 -O2 -Wall')
+        compiler = os.getenv('CXX', 'g++').split(' ')
+        options = os.getenv('CXX_FLAGS', '-std=c++14 -O2 -Wall').split(' ')
         result = self.command(
-            '{} {} main.cpp -o ./a.out'.format(compiler, options))
+            compiler + options + ['main.cpp', '-o', './a.out'])
 
         if result != 0:
             print('{}: {}'.format(path, colored('Compile Error', 'cyan')))
@@ -54,8 +55,10 @@ class TestSandbox(sandbox.Sandbox):
         output_path = Path('output')
         start_time = time.time()
 
-        exec_code = self.command('timeout -s 9 {} {} < {} > {}'.format(
-            time_limit, execution, input_path, output_path))
+        exec_code = self.command(
+            ['timeout', '-s', '9', str(time_limit), execution],
+            stdin=self.get_path(input_path).open(),
+            stdout=self.get_path(output_path).open('w'))
 
         time_duration = time.time() - start_time
 
@@ -133,8 +136,14 @@ def test(source_path):
 
     # Specify testcase directory
     if 'test' in data:
-        for path in data['test']:
-            testcase_path.append(Path(path))
+        testcase = data['test']
+        path = testcase['path']
+        if 'generate' in testcase:
+            generate = testcase['generate']
+            exec_code = subprocess.run([generate, path]).returncode
+            if exec_code != 0:
+                raise Exception('Failed to generate input files.')
+        testcase_path.append(Path(path))
 
     # Judge
     with TestSandbox('.workspace') as sandbox:
