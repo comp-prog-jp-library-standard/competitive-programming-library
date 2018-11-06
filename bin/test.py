@@ -2,7 +2,7 @@
 
 import argparse
 from pathlib import Path
-import os
+import subprocess
 import time
 import yaml
 
@@ -23,7 +23,7 @@ class TestSandbox(sandbox.Sandbox):
             f.write(preprocessor.preprocess([str(path)]))
 
         result = self.command(
-            'g++ --std=c++11 -O2 -Wall main.cpp -o ./a.out'.format(path))
+            ['g++', '--std=c++11', '-O2', '-Wall', 'main.cpp', '-o', './a.out'])
 
         if result != 0:
             print('{}: {}'.format(path, colored('Compile Error', 'cyan')))
@@ -52,8 +52,10 @@ class TestSandbox(sandbox.Sandbox):
         output_path = Path('output')
         start_time = time.time()
 
-        exec_code = self.command('timeout -s 9 {} {} < {} > {}'.format(
-            time_limit, execution, input_path, output_path))
+        exec_code = self.command(
+            ['timeout', '-s', '9', str(time_limit), execution],
+            stdin=self.get_path(input_path).open(),
+            stdout=self.get_path(output_path).open('w'))
 
         time_duration = time.time() - start_time
 
@@ -135,7 +137,7 @@ def test(source_path):
         path = testcase['path']
         if 'generate' in testcase:
             generate = testcase['generate']
-            exec_code = os.system(generate + ' ' + path)
+            exec_code = subprocess.run([generate, path]).returncode
             if exec_code != 0:
                 raise Exception('Failed to generate input files.')
         testcase_path.append(Path(path))
