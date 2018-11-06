@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import argparse
+import os
 from pathlib import Path
 import subprocess
 import time
@@ -22,8 +23,10 @@ class TestSandbox(sandbox.Sandbox):
         with (source_path).open(mode='w') as f:
             f.write(preprocessor.preprocess([str(path)]))
 
+        compiler = os.getenv('CXX', 'g++').split(' ')
+        options = os.getenv('CXX_FLAGS', '-std=c++14 -O2 -Wall').split(' ')
         result = self.command(
-            ['g++', '--std=c++11', '-O2', '-Wall', 'main.cpp', '-o', './a.out'])
+            compiler + options + ['main.cpp', '-o', './a.out'])
 
         if result != 0:
             print('{}: {}'.format(path, colored('Compile Error', 'cyan')))
