@@ -24,7 +24,7 @@ class TestSandbox(sandbox.Sandbox):
             f.write(preprocessor.preprocess([str(path)]))
 
         compiler = os.getenv('CXX', 'g++').split(' ')
-        options = os.getenv('CXX_FLAGS', '-std=c++14 -O2 -Wall').split(' ')
+        options = os.getenv('CXXFLAGS', '-std=c++14 -O2 -Wall').split(' ')
         result = self.command(
             compiler + options + ['main.cpp', '-o', './a.out'])
 
