@@ -16,8 +16,8 @@ public:
   using node_type = typename edge_type::node_type;
   using weight_type = typename edge_type::weight_type;
   using cost_type = Cost;
-  using compare = Compare;
-  using add = Add;
+  using cost_compare_lt = Compare;
+  using cost_add = Add;
   using edges_type = std::vector<edge_type>;
   using iterator = typename edges_type::iterator;
   using const_iterator = typename edges_type::const_iterator;

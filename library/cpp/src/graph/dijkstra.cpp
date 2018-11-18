@@ -23,8 +23,8 @@ typename Graph::template map_value<typename Graph::cost_type>
 dijkstra(const Graph &g, typename Graph::node_type start) {
   using node_type = typename Graph::node_type;
   using cost_type = typename Graph::cost_type;
-  using compare = typename Graph::compare;
-  using add = typename Graph::add;
+  using compare = typename Graph::cost_compare_lt;
+  using add = typename Graph::cost_add;
   using map_value = typename Graph::template map_value<cost_type>;
   map_value d(g.size(), Graph::inf_cost);
   d[start] = Graph::zero_cost;
