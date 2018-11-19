@@ -22,8 +22,8 @@ public:
   using iterator = typename edges_type::iterator;
   using const_iterator = typename edges_type::const_iterator;
   template <typename T> using map_value = std::vector<T>;
-  static const cost_type inf_cost = std::numeric_limits<cost_type>::max();
-  static const cost_type zero_cost = static_cast<cost_type>(0);
+  static constexpr cost_type inf_cost = std::numeric_limits<cost_type>::max();
+  static constexpr cost_type zero_cost = static_cast<cost_type>(0);
   WeightedGraph() : g() { ; }
   WeightedGraph(int size) : g(size) { ; }
   void add_edge(node_type s, node_type t, weight_type w) {
@@ -40,5 +40,11 @@ public:
 private:
   std::vector<edges_type> g;
 };
+
+template <typename Cost, typename Compare, typename Add>
+constexpr Cost WeightedGraph<Cost, Compare, Add>::inf_cost;
+
+template <typename Cost, typename Compare, typename Add>
+constexpr Cost WeightedGraph<Cost, Compare, Add>::zero_cost;
 
 } // namespace procon
