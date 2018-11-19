@@ -1,2 +1,3 @@
 test:
-  - testcases/benchmarks/array_query
+  generate: ./testcases/benchmarks/scripts/generator.sh
+  path: testcases/benchmarks/union_find

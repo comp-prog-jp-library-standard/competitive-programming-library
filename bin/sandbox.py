@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-import os
 from pathlib import Path
 import shutil
+import subprocess
 
 
 class Sandbox(object):
@@ -15,8 +15,9 @@ class Sandbox(object):
     def get_path(self, relpath):
         return self.directory / relpath
 
-    def command(self, com):
-        return os.system('cd {} && {}'.format(self.directory, com))
+    def command(self, com, **kwargs):
+        kwargs = dict(kwargs, **{'cwd': self.directory})
+        return subprocess.run(com, **kwargs).returncode
 
     def __enter__(self):
         return self
