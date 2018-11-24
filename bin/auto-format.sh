@@ -35,7 +35,6 @@ then
    echo "Error: ${ERROR_COUNT} file(s)" 1>&2
    exit 1
 fi
-echo "OK"
 
 for TEST_FILE in `find library/cpp/tests | grep -E "\.cpp"`
 do

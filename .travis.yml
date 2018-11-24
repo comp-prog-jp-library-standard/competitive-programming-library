@@ -34,4 +34,4 @@ install:
 
 script:
   - ${CXX} --version
-  - ./travis-test.sh
+  - bin/travis-test.sh
