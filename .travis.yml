@@ -1,10 +1,9 @@
+dist: xenial
+
 matrix:
   include:
     - addons:
         apt:
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-6.0
           packages:
             - g++-5
             - clang-format-6.0
@@ -13,9 +12,6 @@ matrix:
 
     - addons:
         apt:
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-trusty-6.0
           packages:
             - clang++-3.8
             - libc++-dev
