@@ -17,7 +17,7 @@ matrix:
             - libc++-dev
             - clang-format-6.0
       env:
-        - CXX=clang++-3.8 && CXXFLAGS="-std=c++14 -stdlib=libc++ -Wall -Wextra -Wshadow -Wno-unused-result -Werror"
+        - CXX=clang++-3.8 && CXXFLAGS="-std=c++14 -stdlib=libc++ -O2 -Wall -Wextra -Wshadow -Wno-unused-result -Werror"
 
 install:
   - pyenv versions
