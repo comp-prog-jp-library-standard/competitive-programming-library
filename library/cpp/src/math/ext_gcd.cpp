@@ -5,6 +5,7 @@ namespace procon {
  * a * x + b * y = g.
  */
 template <class T> T ext_gcd(T a, T b, T &x, T &y) {
+  static_assert(std::is_integral<T>::value, "T should be an integral value");
   if (b == 0) {
     x = 1;
     y = 0;
