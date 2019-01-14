@@ -1,11 +1,36 @@
-addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    - llvm-toolchain-trusty-6.0
-    packages:
-    - clang-format-6.0
-env:
-  - CLANG_FORMAT=clang-format-6.0
+dist: xenial
+
+matrix:
+  include:
+    - addons:
+        apt:
+          packages:
+            - g++-5
+            - clang-format-6.0
+      env:
+        - CXX=g++-5 && CXXFLAGS="-std=gnu++1y -O2 -Wall -Wextra -Wshadow -Wno-unused-result -Werror"
+
+    - addons:
+        apt:
+          packages:
+            - clang++-3.8
+            - libc++-dev
+            - clang-format-6.0
+      env:
+        - CXX=clang++-3.8 && CXXFLAGS="-std=c++14 -stdlib=libc++ -O2 -Wall -Wextra -Wshadow -Wno-unused-result -Werror"
+
+install:
+  - pyenv versions
+  - pyenv global 3.6
+  - pip install --upgrade pip
+  - pip install PyYAML requests termcolor
+
 script:
+  - ${CXX} --version
   - ./travis-test.sh
+
+cache:
+  - apt
+  - pip
+  - directories:
+    - testcases

@@ -4,7 +4,10 @@
 # and check if they become different from the original ones by using git diff.
 # ${CLANG_FORMAT} is the name of clang-format command we want to use.
 # If not set, it defaults to "clang-format".
-if [ -z ${CLANG_FORMAT} ]
+
+set -eu
+
+if [ -z ${CLANG_FORMAT+x} ]
 then
     CLANG_FORMAT=clang-format
 fi
@@ -33,3 +36,9 @@ then
    exit 1
 fi
 echo "OK"
+
+for TEST_FILE in `find library/cpp/tests | grep -E "\.cpp"`
+do
+    echo ${TEST_FILE}
+    ./bin/test.py ${TEST_FILE}
+done
