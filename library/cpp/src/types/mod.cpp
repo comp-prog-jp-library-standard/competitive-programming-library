@@ -63,11 +63,11 @@ public:
     Modulo res = *this;
     return res *= a;
   }
-  Modulo operator^(int m) const {
+  friend Modulo pow(const Modulo &x, long long m) {
     if (m == 0)
       return Modulo(1);
-    const Modulo a = *this;
-    Modulo res = (a * a) ^ (m / 2);
+    const Modulo a = x;
+    Modulo res = pow(a * a, m / 2);
     return m % 2 ? res * a : res;
   }
   typename std::enable_if<has_inverse, Modulo>::type

@@ -4,5 +4,5 @@ int main(void) {
   using Mod = Modulo<1000000007>;
   int m, n;
   std::cin >> m >> n;
-  std::cout << static_cast<int>(Mod(m) ^ n) << std::endl;
+  std::cout << static_cast<int>(pow(Mod(m), n)) << std::endl;
 }
