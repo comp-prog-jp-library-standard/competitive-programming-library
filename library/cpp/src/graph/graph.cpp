@@ -17,6 +17,7 @@ public:
   using weight_type = typename edge_type::weight_type;
   using cost_type = Cost;
   using cost_compare_lt = Compare;
+  using cost_compare_eq = std::equal_to<Cost>;
   using cost_add = Add;
   using edges_type = std::vector<edge_type>;
   using iterator = typename edges_type::iterator;
